@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
 
     public GameObject placeholderBuilding; 
 
+    public GameObject cursorBuilding;
+
     public float rotateLerpSpeed = 16;
 
     public Vector3 offset;
@@ -19,6 +21,13 @@ public class CameraController : MonoBehaviour
     bool zoomingToObject = false;
 
     bool focusedOnObject = false;
+
+    void Start()
+    {
+        cursorBuilding = Instantiate(placeholderBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
+        cursorBuilding.gameObject.tag="CursorBuilding";
+        cursorBuilding.GetComponent<MeshRenderer>().material.color = new Color(0f, 1f, 0f, 0.1f);
+    }
 
     void FixedUpdate()
     {
@@ -37,6 +46,8 @@ public class CameraController : MonoBehaviour
         }
         
     }
+
+
   
     // Update is called once per frame
     void Update()
@@ -102,17 +113,36 @@ public class CameraController : MonoBehaviour
                 focusedOnObject = false;
             }
 
-            if (Input.GetMouseButtonDown(0)){ // if left button pressed...
-                Ray ray = GetComponent<UnityEngine.Camera>().ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit)){
+            
+            Ray ray = GetComponent<UnityEngine.Camera>().ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            int layerMask = 1 << 8;
+
+            if (Physics.Raycast(ray, out hit, 100, layerMask) ){
+             //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask)) {
+                
+                Debug.Log("layerMask " + layerMask);
+                Debug.Log("hittrasnformlayer " + hit.transform.gameObject.layer);
+                cursorBuilding.transform.position = new Vector3(hit.point.x,hit.point.y,hit.point.z);
+
+                Quaternion wantedRotation = Quaternion.LookRotation(hit.normal);
+                cursorBuilding.transform.rotation = wantedRotation;
+                cursorBuilding.transform.Rotate(90,90,90);
+
+                if (Input.GetMouseButtonDown(0)){ // if left button pressed...
                     var building = Instantiate(placeholderBuilding,new Vector3(hit.point.x,hit.point.y,hit.point.z), Quaternion.identity);
 
-                    Quaternion wantedRotation = Quaternion.LookRotation(hit.normal);
+                    wantedRotation = Quaternion.LookRotation(hit.normal);
                     building.transform.rotation = wantedRotation;
                     building.transform.Rotate(90,90,90);
                 }
+
             }
+            else {
+                cursorBuilding.transform.position =  new Vector3 (-10000, -10000, -10000);
+            }
+            
             
         }
     }

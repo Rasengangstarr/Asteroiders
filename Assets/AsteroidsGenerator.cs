@@ -29,6 +29,7 @@ public class AsteroidsGenerator : MonoBehaviour
 
                 asteroid.transform.localScale = new Vector3(scaleFactor + Random.Range(1f, 5f), scaleFactor + Random.Range(1f, 5f), scaleFactor + Random.Range(1f, 5f));
                 asteroid.transform.Rotate(Random.Range(1, 360), Random.Range(1, 360), Random.Range(1, 360));
+                asteroid.gameObject.layer = 8;
             }
                 
 
