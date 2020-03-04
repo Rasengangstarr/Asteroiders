@@ -26,7 +26,8 @@ public class CameraController : MonoBehaviour
     {
         cursorBuilding = Instantiate(placeholderBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
         cursorBuilding.gameObject.tag="CursorBuilding";
-        cursorBuilding.GetComponent<MeshRenderer>().material.color = new Color(0f, 1f, 0f, 0.1f);
+        cursorBuilding.gameObject.AddComponent<CursorController>();
+        
     }
 
     void FixedUpdate()
@@ -120,22 +121,20 @@ public class CameraController : MonoBehaviour
             int layerMask = 1 << 8;
 
             if (Physics.Raycast(ray, out hit, 100, layerMask) ){
-             //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask)) {
-                
-                Debug.Log("layerMask " + layerMask);
-                Debug.Log("hittrasnformlayer " + hit.transform.gameObject.layer);
+
                 cursorBuilding.transform.position = new Vector3(hit.point.x,hit.point.y,hit.point.z);
 
                 Quaternion wantedRotation = Quaternion.LookRotation(hit.normal);
                 cursorBuilding.transform.rotation = wantedRotation;
                 cursorBuilding.transform.Rotate(90,90,90);
 
-                if (Input.GetMouseButtonDown(0)){ // if left button pressed...
+                if (Input.GetMouseButtonDown(0) && !cursorBuilding.GetComponent<CursorController>().Colliding){ // if left button pressed...
+                    
                     var building = Instantiate(placeholderBuilding,new Vector3(hit.point.x,hit.point.y,hit.point.z), Quaternion.identity);
-
                     wantedRotation = Quaternion.LookRotation(hit.normal);
                     building.transform.rotation = wantedRotation;
                     building.transform.Rotate(90,90,90);
+                    building.gameObject.layer = 9;
                 }
 
             }
