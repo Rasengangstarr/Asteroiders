@@ -126,14 +126,14 @@ public class CameraController : MonoBehaviour
 
                 Quaternion wantedRotation = Quaternion.LookRotation(hit.normal);
                 cursorBuilding.transform.rotation = wantedRotation;
-                cursorBuilding.transform.Rotate(90,90,90);
+                //cursorBuilding.transform.Rotate(90,90,90);
 
                 if (Input.GetMouseButtonDown(0) && !cursorBuilding.GetComponent<CursorController>().Colliding){ // if left button pressed...
                     
                     var building = Instantiate(placeholderBuilding,new Vector3(hit.point.x,hit.point.y,hit.point.z), Quaternion.identity);
                     wantedRotation = Quaternion.LookRotation(hit.normal);
                     building.transform.rotation = wantedRotation;
-                    building.transform.Rotate(90,90,90);
+                    //building.transform.Rotate(90,90,90);
                     building.gameObject.layer = 9;
                 }
 

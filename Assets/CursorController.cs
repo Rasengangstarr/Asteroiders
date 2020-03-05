@@ -26,6 +26,7 @@ public class CursorController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collode!");
         if (collision.gameObject.layer == 9) {
             currentCollisions.Add (collision.gameObject);
         }
