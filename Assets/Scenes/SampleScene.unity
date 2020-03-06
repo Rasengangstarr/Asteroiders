@@ -219,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 8
-  placeholderBuilding: {fileID: -927199367670048503, guid: 90af7b6e6a06d633995216ea1f4cd584,
+  placeholderBuilding: {fileID: 4068727323237682847, guid: a10fc853cb9a5f612bc95bae707449b0,
     type: 3}
   cursorBuilding: {fileID: 0}
   rotateLerpSpeed: 0.125

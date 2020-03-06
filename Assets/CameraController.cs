@@ -8,9 +8,17 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public float speed = 0.5f;
 
-    public GameObject placeholderBuilding; 
+    public GameObject oreMiner; 
 
-    public GameObject cursorBuilding;
+    public GameObject oreRefinery;
+
+    GameObject cursorBuilding;
+
+    GameObject selectedBuilding;
+
+    int selectedBuildingIndex;
+
+    List<GameObject> placeableBuildings;
 
     public float rotateLerpSpeed = 16;
 
@@ -24,9 +32,20 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        cursorBuilding = Instantiate(placeholderBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
+        placeableBuildings = new List<GameObject>();
+
+        placeableBuildings.Add(oreMiner);
+        placeableBuildings.Add(oreRefinery);
+
+        selectedBuildingIndex = 0;
+
+        selectedBuilding = placeableBuildings[selectedBuildingIndex];
+        
+        cursorBuilding = Instantiate(selectedBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
         cursorBuilding.gameObject.tag="CursorBuilding";
         cursorBuilding.gameObject.AddComponent<CursorController>();
+
+
         
     }
 
@@ -53,6 +72,25 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            if (selectedBuildingIndex < placeableBuildings.Count - 1) {
+                selectedBuildingIndex += 1;
+            }
+            else {
+                selectedBuildingIndex = 0;
+            }
+            selectedBuilding = placeableBuildings[selectedBuildingIndex];
+
+            Destroy(cursorBuilding);
+
+            cursorBuilding = Instantiate(selectedBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
+            cursorBuilding.gameObject.tag="CursorBuilding";
+            cursorBuilding.gameObject.AddComponent<CursorController>();
+        }
+          
+
         if (!zoomingToObject && !focusedOnObject)
         {
             if (Input.GetMouseButtonDown(0)){ // if left button pressed...
@@ -130,7 +168,7 @@ public class CameraController : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && !cursorBuilding.GetComponent<CursorController>().Colliding){ // if left button pressed...
                     
-                    var building = Instantiate(placeholderBuilding,new Vector3(hit.point.x,hit.point.y,hit.point.z), Quaternion.identity);
+                    var building = Instantiate(selectedBuilding,new Vector3(hit.point.x,hit.point.y,hit.point.z), Quaternion.identity);
                     wantedRotation = Quaternion.LookRotation(hit.normal);
                     building.transform.rotation = wantedRotation;
                     //building.transform.Rotate(90,90,90);
