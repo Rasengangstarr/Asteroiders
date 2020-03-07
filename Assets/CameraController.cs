@@ -196,8 +196,10 @@ public class CameraController : MonoBehaviour
                 cursorBuilding.transform.position =  new Vector3 (-10000, -10000, -10000);
             }
 
+            layerMask = 1 << 9;
+
             if (!placingBuilding) {
-                if (Physics.Raycast(ray, out hit, 100) && Input.GetMouseButtonDown(0)) {
+                if (Physics.Raycast(ray, out hit, 100, layerMask) && Input.GetMouseButtonDown(0)) {
                     if (highlightedBuilding != null) {
                         Destroy(highlightedBuilding.GetComponent<Outline>());
                     }

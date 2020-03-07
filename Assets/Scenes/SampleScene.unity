@@ -488,7 +488,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: HELLO WORLD
+  m_Text: 
 --- !u!222 &1183043020
 CanvasRenderer:
   m_ObjectHideFlags: 0
