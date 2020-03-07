@@ -12,9 +12,17 @@ public class CameraController : MonoBehaviour
 
     public GameObject oreRefinery;
 
+    public Material outlineMat;
+
+    public Material buildingMat;
+
     GameObject cursorBuilding;
 
     GameObject selectedBuilding;
+
+    bool placingBuilding;
+
+    GameObject highlightedBuilding;
 
     int selectedBuildingIndex;
 
@@ -73,6 +81,11 @@ public class CameraController : MonoBehaviour
     void Update()
     {
 
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            placingBuilding = !placingBuilding;
+        }
+
         if(Input.GetKeyDown(KeyCode.B))
         {
             if (selectedBuildingIndex < placeableBuildings.Count - 1) {
@@ -89,7 +102,6 @@ public class CameraController : MonoBehaviour
             cursorBuilding.gameObject.tag="CursorBuilding";
             cursorBuilding.gameObject.AddComponent<CursorController>();
         }
-          
 
         if (!zoomingToObject && !focusedOnObject)
         {
@@ -158,8 +170,8 @@ public class CameraController : MonoBehaviour
 
             int layerMask = 1 << 8;
 
-            if (Physics.Raycast(ray, out hit, 100, layerMask) ){
-
+            if (Physics.Raycast(ray, out hit, 100, layerMask) && placingBuilding){
+                
                 cursorBuilding.transform.position = new Vector3(hit.point.x,hit.point.y,hit.point.z);
 
                 Quaternion wantedRotation = Quaternion.LookRotation(hit.normal);
@@ -174,10 +186,21 @@ public class CameraController : MonoBehaviour
                     //building.transform.Rotate(90,90,90);
                     building.gameObject.layer = 9;
                 }
+                
 
             }
             else {
                 cursorBuilding.transform.position =  new Vector3 (-10000, -10000, -10000);
+            }
+
+            if (!placingBuilding) {
+                if (Physics.Raycast(ray, out hit, 100) && Input.GetMouseButtonDown(0)) {
+                    if (highlightedBuilding != null) {
+                        Destroy(highlightedBuilding.GetComponent<Outline>());
+                    }
+                    highlightedBuilding = hit.transform.gameObject;
+                    highlightedBuilding.AddComponent<Outline>();
+                }
             }
             
             
