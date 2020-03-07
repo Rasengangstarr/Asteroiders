@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6753687688031545095}
   - component: {fileID: 4473010071934251520}
   - component: {fileID: 9150858659774506315}
+  - component: {fileID: 1503622083864190662}
   m_Layer: 0
   m_Name: OreRefinery
   m_TagString: Untagged
@@ -111,3 +112,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2089099178740792526, guid: 0ed4e1799e285b27cadccc9c5106f9ce, type: 3}
+--- !u!114 &1503622083864190662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4068727323237682847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e324d652c202f459643d00076930d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

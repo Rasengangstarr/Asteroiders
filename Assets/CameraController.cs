@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
@@ -20,7 +21,10 @@ public class CameraController : MonoBehaviour
 
     GameObject selectedBuilding;
 
+
     bool placingBuilding;
+
+    public Text buildingTextUIElement;
 
     GameObject highlightedBuilding;
 
@@ -52,8 +56,6 @@ public class CameraController : MonoBehaviour
         cursorBuilding = Instantiate(selectedBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
         cursorBuilding.gameObject.tag="CursorBuilding";
         cursorBuilding.gameObject.AddComponent<CursorController>();
-
-
         
     }
 
@@ -183,6 +185,7 @@ public class CameraController : MonoBehaviour
                     var building = Instantiate(selectedBuilding,new Vector3(hit.point.x,hit.point.y,hit.point.z), Quaternion.identity);
                     wantedRotation = Quaternion.LookRotation(hit.normal);
                     building.transform.rotation = wantedRotation;
+                    cursorBuilding.gameObject.AddComponent<BuildingController>();
                     //building.transform.Rotate(90,90,90);
                     building.gameObject.layer = 9;
                 }
@@ -200,6 +203,8 @@ public class CameraController : MonoBehaviour
                     }
                     highlightedBuilding = hit.transform.gameObject;
                     highlightedBuilding.AddComponent<Outline>();
+
+                    buildingTextUIElement.text = highlightedBuilding.GetComponent<BuildingController>().GetUITextName();
                 }
             }
             
