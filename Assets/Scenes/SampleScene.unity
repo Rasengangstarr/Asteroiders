@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 882937085}
   - component: {fileID: 882937084}
   - component: {fileID: 882937083}
+  - component: {fileID: 882937087}
   - component: {fileID: 882937086}
   m_Layer: 0
   m_Name: Main Camera
@@ -564,6 +565,23 @@ MonoBehaviour:
   rotateLerpSpeed: 0.125
   offset: {x: 0, y: 0, z: 0}
   smoothSpeed: 0.125
+--- !u!114 &882937087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882937082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47090e2ed1ed1ae0984c54ab5ed4ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedBuildingText: {fileID: 1183043019}
+  KoboldOreText: {fileID: 399611076}
+  ConnectingLinePrefab: {fileID: 2301051181803852459, guid: 0a02a2714d4a9d00db099721796eec3c,
+    type: 3}
+  ConnectingBuildings: 0
 --- !u!1 &1136330476
 GameObject:
   m_ObjectHideFlags: 0

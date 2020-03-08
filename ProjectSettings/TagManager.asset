@@ -19,7 +19,7 @@ TagManager:
   - Asteroids
   - Buildings
   - UICursors
-  - 
+  - UILines
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: LineLayer
+    uniqueID: 2178611781
     locked: 0

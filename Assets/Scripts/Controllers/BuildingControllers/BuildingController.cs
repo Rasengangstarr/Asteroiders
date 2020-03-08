@@ -5,6 +5,8 @@ namespace Asteroiders {
     public class BuildingController : MonoBehaviour
     {
          
+        public List<GameObject> ConnectedBuildings;
+        
         public void Highlighted() {
             
         }

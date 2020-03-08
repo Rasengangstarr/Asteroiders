@@ -9,6 +9,8 @@ namespace Asteroiders{
         public static int KoboldOre {get; set;}
 
         public static int KoboldIngots {get; set;}
+
+        
     }
 
 }

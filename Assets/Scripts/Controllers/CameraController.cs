@@ -89,6 +89,10 @@ namespace Asteroiders {
             {
                 placingBuilding = !placingBuilding;
             }
+            if(Input.GetKeyDown(KeyCode.L))
+            {
+                this.GetComponent<UIController>().ConnectingBuildings = !this.GetComponent<UIController>().ConnectingBuildings;
+            }
 
             if(Input.GetKeyDown(KeyCode.B))
             {
@@ -190,8 +194,6 @@ namespace Asteroiders {
                         building.gameObject.AddComponent<BuildingController>();
                         building.gameObject.layer = 9;
                     }
-                    
-
                 }
                 else {
                     cursorBuilding.transform.position =  new Vector3 (-10000, -10000, -10000);
