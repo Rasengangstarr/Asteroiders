@@ -44,6 +44,7 @@ namespace Asteroiders {
 
         void Start()
         {
+
             placeableBuildings = new List<GameObject>();
 
             placeableBuildings.Add(oreMiner);
@@ -54,6 +55,7 @@ namespace Asteroiders {
             selectedBuilding = placeableBuildings[selectedBuildingIndex];
             
             cursorBuilding = Instantiate(selectedBuilding,new Vector3(-10000,-10000,-10000), Quaternion.identity) as GameObject;
+            Destroy(cursorBuilding.GetComponent<BuildingController>());
             cursorBuilding.gameObject.tag="CursorBuilding";
             cursorBuilding.gameObject.AddComponent<CursorController>();
             
@@ -186,7 +188,6 @@ namespace Asteroiders {
                         wantedRotation = Quaternion.LookRotation(hit.normal);
                         building.transform.rotation = wantedRotation;
                         building.gameObject.AddComponent<BuildingController>();
-                        //building.transform.Rotate(90,90,90);
                         building.gameObject.layer = 9;
                     }
                     
@@ -199,16 +200,11 @@ namespace Asteroiders {
                 layerMask = 1 << 9;
 
                 if (!placingBuilding) {
-                    if (Physics.Raycast(ray, out hit, 100, layerMask) && Input.GetMouseButtonDown(0)) {
-                        if (highlightedBuilding != null) {
-                            Destroy(highlightedBuilding.GetComponent<Outline>());
-                        }
-                        highlightedBuilding = hit.transform.gameObject;
-                        highlightedBuilding.AddComponent<Outline>();
-
-                        buildingTextUIElement.text = highlightedBuilding.GetComponent<BuildingController>().GetUITextName();
-                    }
+                     if (Physics.Raycast(ray, out hit, 100, layerMask) && Input.GetMouseButtonDown(0)) {
+                        this.GetComponent<UIController>().ChangeSelectedBuilding(hit.transform.gameObject);
+                     }
                 }
+                
                 
                 
             }

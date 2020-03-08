@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Asteroiders {
     public class BuildingController : MonoBehaviour
     {
+         
         public void Highlighted() {
             
         }

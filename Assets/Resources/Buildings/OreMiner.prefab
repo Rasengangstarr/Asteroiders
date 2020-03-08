@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6753687688031545095}
   - component: {fileID: 4473010071934251520}
   - component: {fileID: 7166333886533525202}
-  - component: {fileID: 1881413404984324374}
+  - component: {fileID: 4631787961936877141}
   m_Layer: 0
   m_Name: OreMiner
   m_TagString: Untagged
@@ -112,7 +112,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 90af7b6e6a06d633995216ea1f4cd584, type: 3}
---- !u!114 &1881413404984324374
+--- !u!114 &4631787961936877141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

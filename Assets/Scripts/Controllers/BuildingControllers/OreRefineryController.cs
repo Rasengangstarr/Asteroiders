@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 namespace Asteroiders {
-    public class OreMinerController : BuildingController
+    public class OreRefineryController : BuildingController
     {
         public override string GetUITextName() {
-            return "Ore Miner";
+            return "Ore Refinery";
+        }
+
+        void Update() {
+            GameGlobals.KoboldIngots += 1;
         }
     }
 }
