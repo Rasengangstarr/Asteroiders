@@ -11,7 +11,7 @@ public class RotationalCamera : MonoBehaviour
     double distanceFromFocus;
 
     public float fullyZoomedDistance = 13.5f;
-    public double fullyZoomedXAngle = 90;
+    public float fullyZoomedXAngle = 90;
    
 
     // Start is called before the first frame update
@@ -46,11 +46,11 @@ public class RotationalCamera : MonoBehaviour
 
         float currentDistance = Vector3.Distance(transform.position, pointOfFocus.transform.position);
 
-        float cameraRotationX = 90f / -Math.Abs(currentDistance - fullyZoomedDistance);
+        float cameraRotationX = fullyZoomedXAngle / -Math.Abs(currentDistance - fullyZoomedDistance);
         
         var scrollWheelDelta = Input.GetAxis("Mouse ScrollWheel");
         Debug.Log(scrollWheelDelta);
-        if (cameraRotationX >= -90f || scrollWheelDelta < 0) {
+        if (cameraRotationX >= -fullyZoomedXAngle || scrollWheelDelta < 0) {
             
             var myRotation = Quaternion.AngleAxis(cameraRotationX, Vector3.right);
             var myPosition = Vector3.MoveTowards(transform.position, pointOfFocus.transform.position, (scrollWheelDelta * 1f) * (currentDistance - fullyZoomedDistance));
