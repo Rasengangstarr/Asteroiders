@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Pathfinding;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,22 +20,26 @@ public abstract class UnitController : EntityController
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (target != null) {
-            MoveTowardsTarget();
-        }
+        //if (target != null) {
+            SnapToTerrain();
+        //}
     }
 
     public void AssignNewTarget(EntityController newTarget) {
         target = newTarget;
     }
 
-    protected void MoveTowardsTarget() {
-
-        if(Vector3.Distance(other.position, transform.position) > target.ApproachBoundary) {
-            float step = movementSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+    protected void SnapToTerrain(){
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, -transform.up, out hit)) {
+            //transform.position = new Vector3(hit.point.x,hit.point.y,hit.point.z);
+            var wantedRotation = Quaternion.LookRotation(hit.normal);
+            transform.rotation = wantedRotation * Quaternion.Euler(90, 0, 0);
+            var distanceToGround = hit.distance;
+            GetComponent<AIPath>().gravity = new Vector3(-hit.point.x, -hit.point.y, -hit.point.z);
         }
     }
+
 }
